@@ -15,12 +15,14 @@ import java.time.LocalDateTime;
 @Slf4j
 public class GlobalExceptionHandler {
 
-    @ExceptionHandler(AuthenticationException.class)
-    @ResponseBody
-    public ResponseEntity<GlobalErrorResponse> handleAuthenticationException(AuthenticationException ex){
-        GlobalErrorResponse errorResponse = new GlobalErrorResponse(ErrorCode.USERNAME_OR_PASSWORD_NOTFOUND.getCode(), ErrorCode.USERNAME_OR_PASSWORD_NOTFOUND.getMessage());
-        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @ExceptionHandler(AuthenticationException.class)
+//    @ResponseBody
+//    public ResponseEntity<GlobalErrorResponse> handleAuthenticationException(AuthenticationException ex){
+//        GlobalErrorResponse errorResponse = new GlobalErrorResponse
+//                (ErrorCode.USERNAME_OR_PASSWORD_NOTFOUND.getCode(),
+//                        ErrorCode.USERNAME_OR_PASSWORD_NOTFOUND.getMessage());
+//        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalArgumentException.class)
