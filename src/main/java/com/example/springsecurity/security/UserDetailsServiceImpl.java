@@ -8,6 +8,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @RequiredArgsConstructor
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
@@ -16,8 +18,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String MemberId) throws UsernameNotFoundException {
-        Member member = memberRepository.findByMemberId(MemberId).orElseThrow(
-                ()-> new UsernameNotFoundException("등록되지 않았거나 탈퇴한 사용자 입니다"));
-        return new UserDetailsImpl(member);
+        Optional<Member> findMember = memberRepository.findByMemberId(MemberId);
+        if (!findMember.isPresent()) {
+            throw new UsernameNotFoundException("존재하지 않는 사용자 입니다.");
+        }
+        return new UserDetailsImpl(findMember.get().getMemberId(), findMember.get().getPassword() ,findMember.get().getRole());
     }
 }
