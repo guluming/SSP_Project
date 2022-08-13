@@ -42,7 +42,7 @@ public class HomeController {
         if (userDetails != null) {
             model.addAttribute("username", userDetails.getUsername());
 
-            if (userDetails.getUser().getRole() == MemberRoleEnum.ADMIN) {
+            if (userDetails.getRole() == MemberRoleEnum.ADMIN) {
                 model.addAttribute("admin_role", true);
                 return "indexAdmin";
             }
