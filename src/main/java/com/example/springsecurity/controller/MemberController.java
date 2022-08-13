@@ -23,19 +23,19 @@ public class MemberController {
     }
 
     //ID 중복 검사
-    @PostMapping("api/member/id/check")
+    @PostMapping("/api/member/id/check")
     public ResponseEntity<?> duplicateCheckMemberId(@RequestBody DuplicateCheckMemberIdRequest duplicateCheckMemberIdRequest) {
         return memberService.duplicateCheckMemberId(duplicateCheckMemberIdRequest);
     }
 
     //닉네임 중복 검사
-    @PostMapping("api/member/nickname/check")
+    @PostMapping("/api/member/nickname/check")
     public ResponseEntity<?> duplicateCheckMemberNickname(@RequestBody DuplicateCheckMemberNicknameRequest duplicateCheckMemberNicknameRequest) {
         return memberService.duplicateCheckMemberNickname(duplicateCheckMemberNicknameRequest);
     }
 
     //로그인
-    @PostMapping("api/member/login")
+    @PostMapping("/api/member/login")
     public ResponseEntity<?> memberLogin(@RequestBody MemberLoginRequest memberLoginRequest) {
         return memberService.memberLogin(memberLoginRequest);
     }
