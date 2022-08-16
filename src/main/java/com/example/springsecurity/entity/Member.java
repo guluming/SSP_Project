@@ -32,7 +32,9 @@ public class Member {
 
     public Member(MemberSignupRequest param, MemberRoleEnum role) {
 
-        MemberValidator.validatrMemberRegist(param);
+        MemberValidator.validatorMemberId(param.getMemberId());
+        MemberValidator.validatorNickname(param.getNickname());
+        MemberValidator.validatorPassword(param.getPassword(), param.getPasswordchk());
 
         this.memberId = param.getMemberId();
         this.password = param.getPassword();
