@@ -49,8 +49,12 @@ public class MemberService {
     //ID 중복 검사
     public ResponseEntity<?> duplicateCheckMemberId(DuplicateCheckMemberIdRequest duplicateCheckMemberIdRequest) {
         Optional<Member> memberIdCheck = memberRepository.findByMemberId(duplicateCheckMemberIdRequest.getMemberId());
-        if (memberIdCheck.isPresent()) {
-            return new ResponseEntity<>("중복된 아이디입니다.", HttpStatus.BAD_REQUEST);
+        if (duplicateCheckMemberIdRequest.getMemberId() == null) {
+            return new ResponseEntity<>("아이디를 입력해 주세요.", HttpStatus.BAD_REQUEST);
+        } else if (duplicateCheckMemberIdRequest.getMemberId().trim().equals("")) {
+            return new ResponseEntity<>("아이디를 입력해 주세요.", HttpStatus.BAD_REQUEST);
+        } else if (memberIdCheck.isPresent()) {
+            return new ResponseEntity<>("중복된 아이디 입니다.", HttpStatus.BAD_REQUEST);
         } else {
             return new ResponseEntity<>(HttpStatus.OK);
         }
@@ -59,8 +63,14 @@ public class MemberService {
     //닉네임 중복 검사
     public ResponseEntity<?> duplicateCheckMemberNickname(DuplicateCheckMemberNicknameRequest duplicateCheckMemberNicknameRequest) {
         Optional<Member> memberNicknameCheck = memberRepository.findByNickname(duplicateCheckMemberNicknameRequest.getNickname());
-        if (memberNicknameCheck.isPresent()) {
-            return new ResponseEntity<>("중복된 닉네임입니다.", HttpStatus.BAD_REQUEST);
+        if (duplicateCheckMemberNicknameRequest.getNickname() == null) {
+            return new ResponseEntity<>("닉네임을 입력해 주세요.", HttpStatus.BAD_REQUEST);
+        } else if (duplicateCheckMemberNicknameRequest.getNickname().trim().equals("")) {
+            return new ResponseEntity<>("닉네임을 입력해 주세요.", HttpStatus.BAD_REQUEST);
+        } else if (duplicateCheckMemberNicknameRequest.getNickname().matches("^[가-힣a-zA-Z]+$")) {
+            return new ResponseEntity<>("닉네임 형식을 확인해 주세요.", HttpStatus.BAD_REQUEST);
+        } else if (memberNicknameCheck.isPresent()) {
+            return new ResponseEntity<>("중복된 닉네임 입니다.", HttpStatus.BAD_REQUEST);
         } else {
             return new ResponseEntity<>(HttpStatus.OK);
         }
